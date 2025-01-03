@@ -60,7 +60,7 @@ export function NavMain() {
     {
       title: "Users",
       icon: Users,
-      items: [{ title: "All Users", url: "/users/all" }],
+      items: [{ title: "All Users", url: "/dashboard/users/all" }],
     },
   ];
 
