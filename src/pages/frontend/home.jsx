@@ -3,11 +3,17 @@ import { Card } from "@/components/ui/card";
 import Heading from "@/components/ui/heading";
 import Text from "@/components/ui/text";
 import { Separator } from "@radix-ui/react-separator";
-import { Link } from "react-router";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router";
+import { logOutUser } from "../../database/firebaseAuth";
 
 function HomePage() {
-  const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logOutUser();
+    navigate("/login");
+    localStorage.removeItem("user");
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-fixed bg-cover bg-gradient-to-r from-blue-500 to-green-400">
@@ -16,7 +22,8 @@ function HomePage() {
           Welcome to Al Rashid Panjabi Bazar and Cloth
         </Heading>
         <Text className="mt-4 text-lg text-gray-600 animate__animated animate__fadeIn animate__delay-1s">
-          Premium tailoring and fabrics at your service. Experience elegance with every stitch.
+          Premium tailoring and fabrics at your service. Experience elegance
+          with every stitch.
         </Text>
 
         {/* New Hero Section with Text & Button Align */}
@@ -34,10 +41,10 @@ function HomePage() {
 
             {/* Log In Button */}
             <Button
-              variant=""
+              onClick={handleLogout}
               className="px-10 py-4 text-white transition-all duration-300 ease-in-out transform border-2 border-green-600 rounded-full shadow-xl bg-gradient-to-r from-green-500 to-green-600 hover:bg-green-700 hover:scale-105 hover:text-white"
             >
-              <Link to="/login">Log In</Link>
+              <Link to="/login">Log Out</Link>
             </Button>
           </div>
         </div>

@@ -11,16 +11,19 @@ import { useDispatch } from "react-redux";
 import { Separator } from "@radix-ui/react-separator";
 import { registerUser } from "../../database/firebaseAuth";
 
+// RegisterPage Component
 function RegisterPage() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const navigate = useNavigate(); // For navigation after registration
+  const dispatch = useDispatch(); // To update Redux state
 
+  // Initialize form with validation using React Hook Form and Yup
   const methods = useForm({
     resolver: yupResolver(registerValidation),
   });
 
   const { reset } = methods;
 
+  // Handle form submission
   const onSubmit = async (data) => {
     const formData = {
       firstName: data.firstName,
@@ -30,8 +33,10 @@ function RegisterPage() {
     };
 
     try {
+      // Register the user
       const resp = await registerUser(formData);
 
+      // Handle errors from Firebase
       if (resp.error) {
         if (resp.error.code === "auth/email-already-in-use") {
           methods.setError("email", {
@@ -42,15 +47,15 @@ function RegisterPage() {
         return;
       }
 
-      // Create user profile
-      createUserProfile({
+      // Create a new user profile in the database
+      await createUserProfile({
         id: resp.id,
-        name: `${formData.firstName} ${formData.lastName}`, // Combine first and last name
+        name: `${formData.firstName} ${formData.lastName}`,
         email: formData.email,
-        role: "user",
+        role: "user", // Default role for new users
       });
 
-      // Set user data in Redux
+      // Update Redux store with user data
       dispatch(
         setLoginUserDataToRedux({
           id: resp.id,
@@ -59,13 +64,13 @@ function RegisterPage() {
         })
       );
 
-      // Reset the form and show success toast
+      // Reset the form after successful registration
       reset();
 
-      // Navigate to login page
+      // Navigate to the login page
       navigate("/login");
     } catch (error) {
-      console.log(error);
+      console.error("Error during registration:", error);
     }
   };
 
@@ -79,6 +84,7 @@ function RegisterPage() {
           Welcome! Please fill in the details to get started.
         </p>
 
+        {/* FormProvider wraps the form for context sharing */}
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <Separator className="mb-4" />
@@ -156,12 +162,14 @@ function RegisterPage() {
               )}
             </div>
 
+            {/* Submit Button */}
             <Button type="submit" className="w-full mt-6">
               Continue
             </Button>
           </form>
         </FormProvider>
 
+        {/* Redirect to Login Page */}
         <p className="mt-4 text-sm text-center">
           Already have an account?{" "}
           <Link to="/login" className="text-indigo-600 hover:underline">

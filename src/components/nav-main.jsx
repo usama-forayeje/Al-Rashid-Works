@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  ChevronRight,
-  Home,
-  Package,
-  Tag,
-  Users,
-} from "lucide-react";
+import { ChevronRight, Home, Package, Tag, Users } from "lucide-react";
 
 import {
   Collapsible,
@@ -36,27 +30,37 @@ export function NavMain() {
       isActive: true,
     },
     {
-      title: "Products",
+      title: "Orders",
       icon: Package,
       items: [
-        { title: "Create Product", url: "/dashboard/create-product" },
-        { title: "All Products", url: "/dashboard/index-product" },
+        { title: "Create Order", url: "/dashboard/create-order" },
+        { title: "All Order", url: "/dashboard/index-order" },
       ],
     },
     {
-      title: "Categories",
+      title: "Workers",
       icon: Tag,
       items: [
-        { title: "Create Category", url: "/dashboard/create-category" },
-        { title: "All Categories", url: "/dashboard/index-category" },
+        { title: "Create Workers", url: "/dashboard/create-workers" },
+        { title: "All Workers", url: "/dashboard/index-workers" },
       ],
+    },
+    {
+      title: "Master",
+      icon: Tag,
+      items: [
+        { title: "Create Master", url: "/dashboard/create-master" },
+      ],
+    },
+    {
+      title: "Category",
+      icon: Users,
+      items: [{ title: "Create Category", url: "/dashboard/create-category" }],
     },
     {
       title: "Users",
       icon: Users,
-      items: [
-        { title: "All Users", url: "/users/all" },
-      ],
+      items: [{ title: "All Users", url: "/users/all" }],
     },
   ];
 
@@ -80,9 +84,7 @@ export function NavMain() {
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
                   {item.items && (
-                    <ChevronRight
-                      className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
-                    />
+                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                   )}
                 </SidebarMenuButton>
               </CollapsibleTrigger>

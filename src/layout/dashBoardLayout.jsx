@@ -20,10 +20,9 @@ import { Filter, ListFilterPlus } from "lucide-react";
 import { Button } from "../components/ui/button";
 import InputSearch from "../components/ui/searchbar";
 import { Outlet } from "react-router";
+
+
 export default function DashboardLayout() {
-
-
-
   return (
     <>
       <SidebarProvider>

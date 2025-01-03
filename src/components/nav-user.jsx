@@ -35,6 +35,7 @@ export function NavUser({ user }) {
   const handleLogout = () => {
     logOutUser()
     navigate("/login")
+    localStorage.removeItem("user");
   }
 
   return (
