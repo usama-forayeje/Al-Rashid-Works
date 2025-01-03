@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     isLogin: false,
-    user: null,
+    user: null, // Logged-in user data
+    users: [], // All users
 };
 
 const authSlice = createSlice({
@@ -13,8 +14,11 @@ const authSlice = createSlice({
             state.isLogin = true;
             state.user = action.payload;
         },
+        setAllUsersToRedux: (state, action) => {
+            state.users = action.payload; // Update all users list
+        },
     },
 });
 
 export default authSlice.reducer;
-export const { setLoginUserDataToRedux } = authSlice.actions;
+export const { setLoginUserDataToRedux, setAllUsersToRedux } = authSlice.actions;
